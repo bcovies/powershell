@@ -15,4 +15,4 @@ else {
     Write-Host "Para instalação dos aplicativos é necessária a inicialização do powershell em modo administrativo."
 }
 
-Read-Host "Pressione qualquer tecla para sair..."
+Read-Host "Finalizado. Pressione qualquer tecla para sair..."
