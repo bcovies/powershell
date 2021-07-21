@@ -1,6 +1,3 @@
-$caminhoPersonalizacaoTema = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
-$nomePersonalizacaoTema = "AppsUseLightTheme"
-
 Write-Host "Inicio da configuração de tema da sua máquina..."
 Write-Host "Deseja alternar o tema do windows?"
 $confirmacao = Read-Host "[y/Y] - Sim"
@@ -19,5 +16,4 @@ else {
     Write-Host "Tema inalterado."
 }
 
-Write-Host "Pressione qualquer tecla para terminar o programa"
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+Read-Host "Pressione qualquer tecla para terminar o programa"
