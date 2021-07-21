@@ -1,7 +1,24 @@
 Write-Host 'Iniciada a instalação de pacotes'
-while ( $x -lt $lista_pacotes.Length) {
-    winget install $lista_pacotes[$x]
-    Write-Host "Instalado pacote:" $lista_pacotes[$x]
+$x = 0
+$lista_pacotes_instalar = @(
+    'Microsoft.WindowsTerminal', 
+    'WhatsApp.WhatsApp', 
+    'OBSProject.OBSStudio', 
+    'Twitch.Twitch', 
+    'Microsoft.VisualStudioCode', 
+    'Notepad++.Notepad++', 
+    'Oracle.VirtualBox', 
+    'SlackTechnologies.Slack', 
+    'Google.Chrome', 
+    'Discord.Discord',
+    'Nvidia.GeForceExperience', 
+    'Flameshot.Flameshot',
+    'Spotify.Spotify',
+    'Telegram.TelegramDesktop')
+
+while ( $x -lt $lista_pacotes_instalar.Length) {
+    winget install $lista_pacotes_instalar[$x]
+    Write-Host "Instalado pacote:" $lista_pacotes_instalar[$x]
     $x++
 }
 Read-Host "Finalizado. Pressione qualquer tecla para sair..."

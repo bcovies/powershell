@@ -1,4 +1,6 @@
 Write-Host "Inicio da configuração de tema da sua máquina..."
+$caminhoPersonalizacaoTema = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+$nomePersonalizacaoTema = "AppsUseLightTheme"
 Write-Host "Deseja alternar o tema do windows?"
 $confirmacao = Read-Host "[y/Y] - Sim"
 if ($confirmacao -eq 'y' -or $confirmacao -eq 'Y') {
