@@ -1,5 +1,4 @@
 Write-Host 'Iniciada a instalação de pacotes'
-
 $x = 0
 $lista_pacotes_remover = @(
     'Cortana',

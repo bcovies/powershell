@@ -14,7 +14,11 @@ $lista_pacotes_instalar = @(
     'Nvidia.GeForceExperience', 
     'Flameshot.Flameshot',
     'Spotify.Spotify',
-    'Telegram.TelegramDesktop')
+    'Telegram.TelegramDesktop',
+    'Mozilla.Firefox',
+	'7zip.7zip',
+	'WinSCP.WinSCP',
+    'PuTTY.PuTTY')
 
 while ( $x -lt $lista_pacotes_instalar.Length) {
     winget install $lista_pacotes_instalar[$x]
