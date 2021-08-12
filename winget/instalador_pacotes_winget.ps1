@@ -19,7 +19,8 @@ $lista_pacotes_instalar = @(
     '7zip.7zip',
     'WinSCP.WinSCP',
     'PuTTY.PuTTY',
-    'GIMP.GIMP')
+    'GIMP.GIMP',
+    'LibreOffice.LibreOffice')
 
 while ( $x -lt $lista_pacotes_instalar.Length) {
     winget install $lista_pacotes_instalar[$x]
