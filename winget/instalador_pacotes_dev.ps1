@@ -7,8 +7,14 @@ $lista_pacotes_instalar = @(
     'Git.Git',
     'Notepad++.Notepad++', 
     'Oracle.VirtualBox', 
-    'SlackTechnologies.Slack', 
     '7zip.7zip',
+    'Microsoft.PowerShell -v 7.2.1.0',
+    'Canonical.Ubuntu',
+    'GitHub.Atom',
+    'Debian.Debian',
+    'Hashicorp.Vagrant',
+    'Amazon.AWSCLI',
+    'OpenJS.NodeJS',
     'Mozilla.Firefox',
     'Google.Chrome')
 
