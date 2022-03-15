@@ -17,5 +17,10 @@ Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Management
 Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Hypervisor" -All
 Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Services" -All
 Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Management-Clients" -All
+
+curl.exe -L -o wsl_update_x64.msi https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+.\wsl_update_x64.msi
+
+wsl --set-default-version 2
  
 Read-Host "Finalizado. Pressione qualquer tecla para sair..."
