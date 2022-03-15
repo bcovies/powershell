@@ -35,6 +35,6 @@ while ( $x -lt $lista_pacotes_instalar.Length) {
     Write-Host "Instalado pacote:" $lista_pacotes_instalar[$x]
     $x++
 }
-curl.exe -L -o eclipse.zip https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-win32-x86_64.zip&mirror_id=576
+curl.exe -L -o eclipse.zip "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-win32-x86_64.zip&mirror_id=576"
 
 Read-Host "Finalizado. Pressione qualquer tecla para sair..."
