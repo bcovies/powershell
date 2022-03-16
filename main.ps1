@@ -1,3 +1,7 @@
+# Faz checagem se é administrador
+$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+$currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
 Write-Host "Início do script de automação de Windows 10"
 
 $HOME_PATH = Get-Location
@@ -139,48 +143,6 @@ Function install-dev-packages {
         Write-Host "Instalado pacote:" $lista_pacotes_instalar[$x]
         $x++
     }
-    
-    Write-Host "Baixando eclipse IDE..."
-    curl.exe -L -o ".\download\eclipse.zip" "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-win32-x86_64.zip&mirror_id=576"
-    
-    $ECLIPSE_FILE_EXISTS = Test-Path -Path ".\download\eclipse.zip" -PathType Leaf
-    if ($ECLIPSE_FILE_EXISTS){
-        Write-Host "Arquivo eclipse.zip encontrado com sucesso..."
-        Expand-Archive -LiteralPath ".\download\eclipse.zip"  -DestinationPath ".\EclipeIDE"
-        if ($?){
-            Write-Host "Arquivo extraído com sucesso!"
-        }
-    }
-
-    Write-Host "Instalando recursos online do Windows ..."
-    Enable-WindowsOptionalFeature -Online -FeatureName "TelnetClient" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "HypervisorPlatform" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Containers" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "NFS-Administration" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Windows-Defender-ApplicationGuard" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-All" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Tools-All" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Management-PowerShell" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Hypervisor" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Services" -All -NoRestart
-    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Management-Clients" -All -NoRestart
-
-    curl.exe -L -o  ".\download\wsl_update_x64.msi"  "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
-
-    $WSL_UPDATE_FILE_EXISTS = Test-Path -Path ".\download\wsl_update_x64.msi" -PathType Leaf
-    if ($WSL_UPDATE_FILE_EXISTS){
-        Write-Host "Arquivo wsl_update_x64.msi encontrado com sucesso..."
-        Add-AppxPackage -Path ".\download\wsl_update_x64.msi"
-        if ($?){
-            Write-Host "Arquivo extraído com sucesso!"
-            wsl --set-default-version 2
-        }
-    }
-
 }
 
 Function install-commom-packages {
@@ -204,12 +166,74 @@ Function install-commom-packages {
         $x++
     }
 }
+
+Function download-some-packages {
+    $DOWNLOAD_FOLDER_EXISTS =  Test-Path -Path ".\download" -PathType Leaf 
+    if ($DOWNLOAD_FOLDER_EXISTS){
+        Write-Host "Pasta downloads já existente!!"
+    }else{
+        Write-Host "Pasta downloads não existe!!"
+        New-Item -Path ".\download" -ItemType Directory
+    }
+    Write-Host "Baixando eclipse IDE..."
+    curl.exe -L -o ".\download\eclipse.zip" "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-win32-x86_64.zip&mirror_id=576"
+    
+    $ECLIPSE_FILE_EXISTS = Test-Path -Path ".\download\eclipse.zip" -PathType Leaf
+    if ($ECLIPSE_FILE_EXISTS){
+        Write-Host "Arquivo eclipse.zip encontrado com sucesso..."
+        Expand-Archive -LiteralPath ".\download\eclipse.zip"  -DestinationPath ".\EclipeIDE"
+        if ($?){
+            Write-Host "Arquivo extraído com sucesso!"
+        }
+    }
+
+    curl.exe -L -o  ".\download\wsl_update_x64.msi"  "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
+
+    $WSL_UPDATE_FILE_EXISTS = Test-Path -Path ".\download\wsl_update_x64.msi" -PathType Leaf
+    if ($WSL_UPDATE_FILE_EXISTS){
+        Write-Host "Arquivo wsl_update_x64.msi encontrado com sucesso..."
+        Add-AppxPackage -Path ".\download\wsl_update_x64.msi"
+        if ($?){
+            Write-Host "Arquivo extraído com sucesso!"
+            wsl --set-default-version 2
+        }
+    }
+
+}
+Function install-windows-features {
+
+    Write-Host "Instalando recursos online do Windows ..."
+    Enable-WindowsOptionalFeature -Online -FeatureName "TelnetClient" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "HypervisorPlatform" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Containers" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "NFS-Administration" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Windows-Defender-ApplicationGuard" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-All" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Tools-All" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Management-PowerShell" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Hypervisor" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Services" -All -NoRestart
+    Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Management-Clients" -All -NoRestart
+
+}
 Function main {
+    # Desabilita o controle de usuário para ser mais rápido
+    Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
+
+    change-to-darkmode 
     test-winget-installed
     remove-unwanted-packages
     install-commom-packages
     install-dev-packages
-    change-to-darkmode 
+    download-some-packages
+    install-windows-features
+
+    # Habilita novamente o controle de usuário
+    Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
 }
 
 main
