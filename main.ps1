@@ -175,24 +175,24 @@ Function download-some-packages {
         Write-Host "Pasta downloads não existe!!"
         New-Item -Path ".\download" -ItemType Directory
     }
-    Write-Host "Baixando eclipse IDE..."
-    curl.exe -L -o ".\download\eclipse.zip" "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-win32-x86_64.zip&mirror_id=576"
+    # Write-Host "Baixando eclipse IDE..."
+    # curl.exe -L -o ".\download\eclipse.zip" "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2021-12/R/eclipse-jee-2021-12-R-win32-x86_64.zip&mirror_id=576"
     
-    $ECLIPSE_FILE_EXISTS = Test-Path -Path ".\download\eclipse.zip" -PathType Leaf
-    if ($ECLIPSE_FILE_EXISTS){
-        Write-Host "Arquivo eclipse.zip encontrado com sucesso..."
-        Expand-Archive -LiteralPath ".\download\eclipse.zip"  -DestinationPath ".\EclipeIDE"
-        if ($?){
-            Write-Host "Arquivo extraído com sucesso!"
-        }
-    }
+    # $ECLIPSE_FILE_EXISTS = Test-Path -Path ".\download\eclipse.zip" -PathType Leaf
+    # if ($ECLIPSE_FILE_EXISTS){
+    #     Write-Host "Arquivo eclipse.zip encontrado com sucesso..."
+    #     Expand-Archive -LiteralPath ".\download\eclipse.zip"  -DestinationPath ".\EclipeIDE"
+    #     if ($?){
+    #         Write-Host "Arquivo extraído com sucesso!"
+    #     }
+    # }
 
     curl.exe -L -o  ".\download\wsl_update_x64.msi"  "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
 
     $WSL_UPDATE_FILE_EXISTS = Test-Path -Path ".\download\wsl_update_x64.msi" -PathType Leaf
     if ($WSL_UPDATE_FILE_EXISTS){
         Write-Host "Arquivo wsl_update_x64.msi encontrado com sucesso..."
-        Add-AppxPackage -Path ".\download\wsl_update_x64.msi"
+        .\download\wsl_update_x64.msi
         if ($?){
             Write-Host "Arquivo extraído com sucesso!"
             wsl --set-default-version 2
@@ -229,8 +229,8 @@ Function main {
     remove-unwanted-packages
     install-commom-packages
     install-dev-packages
-    download-some-packages
     install-windows-features
+    download-some-packages
 
     # Habilita novamente o controle de usuário
     Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
