@@ -194,7 +194,7 @@ Function download-some-packages {
         Write-Host "Arquivo wsl_update_x64.msi encontrado com sucesso..."
         .\download\wsl_update_x64.msi
         if ($?){
-            Write-Host "Arquivo extraído com sucesso!"
+            Write-Host "Arquivo executado com sucesso!"
             wsl --set-default-version 2
         }
     }
